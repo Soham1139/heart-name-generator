@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Name Generator</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        #heart {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            line-height: 10px;
+        }
+        .char {
+            font-size: 14px;
+            color: red;
+            width: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Your Name</h1>
+    <form id="nameForm">
+        <input type="text" id="nameInput" placeholder="Enter your name" required />
+        <button type="submit">Generate Heart</button>
+    </form>
+    <div id="heart"></div>
+
+    <script>
+        document.getElementById('nameForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('nameInput').value.trim();
+            generateHeart(name);
+        });
+
+        function generateHeart(name) {
+            const heart = document.getElementById('heart');
+            heart.innerHTML = '';
+            const pattern = [
+                '   000   000   ',
+                '  0   0 0   0  ',
+                ' 0     0     0 ',
+                '  0          0 ',
+                '   0        0  ',
+                '    0      0   ',
+                '     0    0    ',
+                '      0  0     ',
+                '       00      '
+            ];
+            let i = 0;
+            pattern.forEach(row => {
+                const rowDiv = document.createElement('div');
+                row.split('').forEach(char => {
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.textContent = char === '0' ? name[i++ % name.length] : ' ';
+                    rowDiv.appendChild(span);
+                });
+                heart.appendChild(rowDiv);
+            });
+        }
+    </script>
+</body>
+</html>
